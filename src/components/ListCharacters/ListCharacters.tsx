@@ -5,6 +5,7 @@ import { LightCardCharacter } from "../Character/LightCardCharacter";
 import { FullCardCharacter } from "../Character/FullCardCharacter";
 import { cn } from "@/helpers/cn";
 import { HEIGHT_TOP } from "@/constants";
+import { IoIosClose } from "react-icons/io";
 
 export const ListCharacters = ({
   list,
@@ -29,8 +30,16 @@ export const ListCharacters = ({
       )}
       {format === FORMAT.list && (
         <div
-          className={cn(`flex gap-4 min-h-150 h-[calc(100vh-${HEIGHT_TOP}px)]`)}
+          className={cn(`flex gap-4 min-h-150 relative`)}
+          style={{ height: `calc(100vh - ${HEIGHT_TOP}px)` }} //not work in tailwind Oo
         >
+          <IoIosClose
+            className="absolute top-4 right-4 z-10 cursor-pointer text-white bg-black/40 rounded-full"
+            size={30}
+            onClick={() => {
+              if (selected) onSelectionChange(selected.character);
+            }}
+          />
           <ul className="flex flex-col gap-3 px-4 overflow-y-auto w-100">
             {list.map((character: Character) => (
               <li key={character.id}>

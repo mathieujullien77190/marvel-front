@@ -14,3 +14,5 @@ export type FullCardCharacterProps = {
   image: string;
   comics: Comic[];
 };
+
+export type TypeWriterTextProps = { text: string };

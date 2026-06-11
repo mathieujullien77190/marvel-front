@@ -1,14 +1,17 @@
 import { cn } from "@/helpers/cn";
-import { formatName, getSmallImage } from "./helpers";
+import { formatName } from "./helpers";
 import type { CardCharacterProps } from "./types";
 import { Tag } from "./Tag";
+import Favorites from "@/components/Favorites";
+import { getSmallImage } from "@/helpers/utils";
+import ImageLoader from "@/components/ImageLoader";
 
 export const SquareCardCharacter = ({
   onClick = () => {},
   selected,
   ...props
 }: CardCharacterProps) => {
-  const { image, name, description, comics } = props;
+  const { image, name, id, comics } = props;
 
   return (
     <div
@@ -21,9 +24,14 @@ export const SquareCardCharacter = ({
         onClick(props);
       }}
     >
-      <img src={getSmallImage(image)} className="w-14 h-14 rounded-full" />
+      <ImageLoader
+        className="w-14 h-14 rounded-full overflow-hidden"
+        image={getSmallImage(image)}
+      />
+
+      {/* <img src={getSmallImage(image)} className="w-14 h-14 rounded-full" /> */}
       <p className="text font-semibold line-clamp-1">{formatName(name)}</p>
-      <p className="text-ink-light text-sm line-clamp-2 h-10">{description}</p>
+      <Favorites key="characters" id={id} />
       <Tag value={`${comics.length} COMICS`} />
     </div>
   );

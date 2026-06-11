@@ -1,6 +1,2 @@
 export const formatName = (name: string): string =>
   name.replace(/\s*\(.*?\)\s*/g, "").trim();
-
-export const getSmallImage = (image: string): string => {
-  return image.replace(/\.[^.]+$/, "/portrait_small$&");
-};

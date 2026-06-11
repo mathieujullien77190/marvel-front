@@ -15,7 +15,7 @@ export const Home = () => {
   );
   const characters = useCharactersStore((s) => s.characters);
   const setSelected = useCharactersStore((s) => s.toggleSelected);
-  const setSearch = useCharactersStore((s) => s.setSearch);
+  const setSearch = useCharactersStore((s) => s.setCharactersSearch);
 
   useEffect(() => {
     fetchCharacters(characters.search);
@@ -30,6 +30,7 @@ export const Home = () => {
     <>
       <Header>
         <Search
+          placeholder="Rechercher des personnages..."
           value={characters.search.text ?? ""}
           onChange={(v) => {
             setSearch({ ...characters.search, text: v, start: 0 });

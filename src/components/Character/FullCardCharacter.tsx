@@ -1,11 +1,13 @@
 import ListComics from "../ListComics";
-import { formatName } from "./helpers";
 import { Tag } from "./Tag";
 import type { FullCardCharacterProps } from "./types";
 import { cn } from "@/helpers/cn";
 import { HEIGHT_TOP } from "@/constants";
+import Favorites from "../Favorites";
+import { TypeWriterText } from "./TypeWriterText";
 
 export const FullCardCharacter = ({
+  id,
   image,
   name,
   description,
@@ -14,8 +16,9 @@ export const FullCardCharacter = ({
   return (
     <div
       className={cn(
-        `bg-canvas-card w-full rounded-2xl border border-solid border-border-strong flex flex-col gap-4 min-h-150 h-[calc(100vh-${HEIGHT_TOP}px)]`,
+        `bg-canvas-card w-full rounded-2xl border border-solid border-border-strong flex flex-col gap-4 min-h-150 `,
       )}
+      style={{ height: `calc(100vh - ${HEIGHT_TOP}px)` }} //not work in tailwind Oo
       title={name}
     >
       <div className="overflow-hidden rounded-t-2xl">
@@ -26,9 +29,12 @@ export const FullCardCharacter = ({
       </div>
 
       <div className="px-4 flex flex-col gap-4">
-        <p className="text-xl font-semibold line-clamp-1">{formatName(name)}</p>
+        <p className="text-xl font-semibold line-clamp-1 flex justify-between">
+          <span>{name}</span>
+          <Favorites key="characters" id={id} />
+        </p>
 
-        {description && <p className="text-ink-light text-sm">{description}</p>}
+        {description && <TypeWriterText text={description} />}
 
         <Tag value={`${comics.length} COMICS`} />
       </div>

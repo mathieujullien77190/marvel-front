@@ -1,13 +1,16 @@
 import { cn } from "@/helpers/cn";
-import { formatName, getSmallImage } from "./helpers";
+import { formatName } from "./helpers";
 import type { CardCharacterProps } from "./types";
+import Favorites from "@/components/Favorites";
+import { getSmallImage } from "@/helpers/utils";
+import ImageLoader from "@/components/ImageLoader";
 
 export const LightCardCharacter = ({
   onClick = () => {},
   selected,
   ...props
 }: CardCharacterProps) => {
-  const { image, name } = props;
+  const { image, name, id } = props;
 
   return (
     <div
@@ -20,8 +23,15 @@ export const LightCardCharacter = ({
         onClick(props);
       }}
     >
-      <img src={getSmallImage(image)} className="w-14 h-14 rounded-full" />
-      <p className="text font-semibold line-clamp-1">{formatName(name)}</p>
+      <ImageLoader
+        className="w-14 h-14 rounded-full object-cover shrink-0"
+        image={getSmallImage(image)}
+      />
+
+      <div className="w-full flex justify-between items-center gap-1">
+        <p className="text font-semibold line-clamp-1">{formatName(name)}</p>
+        <Favorites key="characters" id={id} />
+      </div>
     </div>
   );
 };

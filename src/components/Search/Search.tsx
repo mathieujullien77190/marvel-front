@@ -2,7 +2,7 @@ import { FaSearch } from "react-icons/fa";
 import type { SearchProps } from "./types";
 import type { ChangeEvent } from "react";
 
-export const Search = ({ value, onChange }: SearchProps) => {
+export const Search = ({ value, placeholder, onChange }: SearchProps) => {
   return (
     <div className="w-1/2 bg-canvas flex gap-2 items-center rounded p-2 cursor-text animate-border">
       <FaSearch className="text-ink-light" />
@@ -11,7 +11,7 @@ export const Search = ({ value, onChange }: SearchProps) => {
         type="text"
         name="search"
         id="search"
-        placeholder="Rechercher un personnage..."
+        placeholder={placeholder}
         value={value}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           onChange(e.target.value)

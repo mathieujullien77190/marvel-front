@@ -2,6 +2,9 @@ import { cn } from "@/helpers/cn";
 
 import marvelLogo from "@/assets/logo.png";
 import type { HeaderProps } from "./types";
+import { Nav } from "./Nav";
+import { ROUTES } from "@/constants";
+import { Link } from "react-router-dom";
 
 export const Header = ({ children }: HeaderProps) => {
   return (
@@ -13,22 +16,12 @@ export const Header = ({ children }: HeaderProps) => {
       )}
     >
       <h1 className="text-marvel-500 text-xl font-semibold">
-        <a href="#">
+        <Link to={ROUTES.home}>
           <img src={marvelLogo} alt="MARVEL logo" className="h-10 " />
-        </a>
+        </Link>
       </h1>
       {children}
-      <nav className="flex gap-2">
-        <a href="#" className="link transition">
-          Personnages
-        </a>
-        <a href="#" className="link transition">
-          Comics
-        </a>
-        <a href="#" className="link transition">
-          Favoris
-        </a>
-      </nav>
+      <Nav />
     </header>
   );
 };
