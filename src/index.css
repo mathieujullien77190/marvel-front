@@ -1,184 +1,74 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
-/* ─────────────────────────────────────────────────────────────────────────────
-   Thème Vinted — Tailwind CSS v4 (CSS-first config)
-   À importer dans ton fichier CSS principal (ex: src/index.css)
-   Compatible Vite + @tailwindcss/vite
-
-   Couleurs officielles :
-     • Blue Lagoon  #007782  — couleur primaire (teal-bleu)
-     • Killarney    #356639  — vert secondaire
-     • Desert Storm #EFF0EE  — fond principal
-───────────────────────────────────────────────────────────────────────────── */
 
 @theme {
-  /* ── Couleurs ────────────────────────────────────────────────────────────── */
+  /* ── Couleurs ── */
 
-  /* Teal primaire — Blue Lagoon (#007782) */
-  --color-lagoon-50: #e6f4f5;
-  --color-lagoon-100: #c0e4e7;
-  --color-lagoon-200: #85cbd0;
-  --color-lagoon-300: #4ab2b9;
-  --color-lagoon-400: #1e99a2;
-  --color-lagoon-500: #007782; /* ★ Couleur signature Vinted */
-  --color-lagoon-600: #006370;
-  --color-lagoon-700: #004f59;
-  --color-lagoon-800: #003b43;
-  --color-lagoon-900: #00272c;
-  --color-lagoon-950: #001316;
+  /* Rouge Marvel */
+  --color-marvel-50: #fef2f2;
+  --color-marvel-100: #fde0e0;
+  --color-marvel-200: #fbb8b8;
+  --color-marvel-300: #f78080;
+  --color-marvel-400: #f05252;
+  --color-marvel-500: #e24b4a; /* ★ Rouge signature */
+  --color-marvel-600: #c53030;
+  --color-marvel-700: #9b1c1c;
+  --color-marvel-800: #771414;
+  --color-marvel-900: #4a0c0c;
 
-  /* Vert secondaire — Killarney (#356639) */
-  --color-killarney-50: #ebf3ec;
-  --color-killarney-100: #c9e3cb;
-  --color-killarney-200: #9dc99f;
-  --color-killarney-300: #70af73;
-  --color-killarney-400: #4f8e52;
-  --color-killarney-500: #356639; /* ★ Vert Vinted */
-  --color-killarney-600: #2b5430;
-  --color-killarney-700: #214226;
-  --color-killarney-800: #17301c;
-  --color-killarney-900: #0d1e11;
-  --color-killarney-950: #060f08;
-
-  /* Fond & surfaces — Desert Storm (#EFF0EE) */
-  --color-canvas: #eff0ee; /* ★ Fond principal Vinted */
-  --color-canvas-white: #ffffff;
+  /* Surfaces */
+  --color-canvas: #f5f5f5;
   --color-canvas-card: #ffffff;
-  --color-canvas-subtle: #f7f8f7;
-  --color-canvas-dark: #1a1a1a;
+  --color-canvas-subtle: #f8f8f8;
 
   /* Texte */
-  --color-ink: #1d1d1b; /* Quasi-noir Vinted */
+  --color-ink: #1a1a1a;
   --color-ink-muted: #666666;
-  --color-ink-light: #9e9e9e;
+  --color-ink-light: #aaaaaa;
   --color-ink-inverse: #ffffff;
 
-  /* Accent — jaune/ambre pour les badges prix & promo */
-  --color-amber: #f5a623;
-  --color-amber-light: #fef5e7;
-  --color-amber-dark: #c27f0d;
+  /* Bordures */
+  --color-border: #e8e8e8;
+  --color-border-strong: #cccccc;
+  --color-border-focus: #e24b4a;
 
-  /* Accent secondaire — rose pour les favoris / cœurs */
-  --color-rose: #e8445a;
-  --color-rose-light: #fde8eb;
-  --color-rose-dark: #b8263a;
-
-  /* États sémantiques */
-  --color-success: #356639; /* Réutilise Killarney */
-  --color-success-light: #ebf3ec;
-  --color-warning: #f5a623;
-  --color-warning-light: #fef5e7;
-  --color-error: #e8445a;
-  --color-error-light: #fde8eb;
-  --color-info: #007782;
-  --color-info-light: #e6f4f5;
-
-  /* Bordures & dividers */
-  --color-border: #dfe0de;
-  --color-border-strong: #bfbfbf;
-  --color-border-focus: #007782;
-
-  /* ── Typographie ─────────────────────────────────────────────────────────── */
-
-  /* Vinted utilise Inter comme police principale */
+  /* ── Typo ── */
   --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
-  --font-display: "Inter", "Helvetica Neue", sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", monospace;
 
-  --text-2xs: 0.625rem;
-  --text-2xs--line-height: 0.875rem;
-  --text-xs: 0.75rem;
-  --text-xs--line-height: 1rem;
-  --text-sm: 0.875rem;
-  --text-sm--line-height: 1.25rem;
-  --text-base: 1rem;
-  --text-base--line-height: 1.5rem;
-  --text-lg: 1.125rem;
-  --text-lg--line-height: 1.75rem;
-  --text-xl: 1.25rem;
-  --text-xl--line-height: 1.875rem;
-  --text-2xl: 1.5rem;
-  --text-2xl--line-height: 2rem;
-  --text-3xl: 1.875rem;
-  --text-3xl--line-height: 2.25rem;
-  --text-4xl: 2.25rem;
-  --text-4xl--line-height: 2.75rem;
-  --text-5xl: 3rem;
-  --text-5xl--line-height: 3.5rem;
-
-  --tracking-tighter: -0.02em;
-  --tracking-tight: -0.01em;
-  --tracking-normal: 0em;
-  --tracking-wide: 0.01em;
-  --tracking-wider: 0.05em;
-
-  /* ── Border-radius ───────────────────────────────────────────────────────── */
-  /* Vinted utilise des coins modérément arrondis, plus sobres que Deliveroo */
-
-  --radius-none: 0;
-  --radius-xs: 2px;
+  /* ── Radius ── */
   --radius-sm: 4px;
-  --radius: 6px;
-  --radius-md: 8px;
+  --radius: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
-  --radius-2xl: 20px;
-  --radius-card: 8px; /* Cards articles */
-  --radius-button: 6px; /* Boutons CTA */
-  --radius-badge: 4px; /* Badges prix / labels */
-  --radius-avatar: 9999px; /* Avatars circulaires */
   --radius-full: 9999px;
+  --radius-card: 12px;
+  --radius-button: 8px;
+  --radius-badge: 20px;
+  --radius-avatar: 9999px;
 
-  /* ── Ombres ──────────────────────────────────────────────────────────────── */
-
-  --shadow-none: none;
-  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
-  --shadow-sm:
-    0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
-  --shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.07);
-  --shadow-md: 0 4px 10px 0 rgba(0, 0, 0, 0.09);
-  --shadow-lg: 0 8px 20px 0 rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 16px 40px 0 rgba(0, 0, 0, 0.12);
-  --shadow-card: 0 1px 4px 0 rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  /* ── Ombres ── */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 1px 4px rgba(0, 0, 0, 0.07), 0 0 0 1px rgba(0, 0, 0, 0.04);
   --shadow-card-hover:
-    0 6px 20px 0 rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.06);
-  --shadow-lagoon: 0 4px 14px 0 rgba(0, 119, 130, 0.35);
-  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+    0 6px 20px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.06);
 
-  /* ── Breakpoints ─────────────────────────────────────────────────────────── */
-
-  --breakpoint-xs: 375px;
+  /* ── Breakpoints ── */
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1440px;
-  --breakpoint-3xl: 1920px;
 
-  /* ── Max-width ───────────────────────────────────────────────────────────── */
-
-  --container-xs: 320px;
-  --container-sm: 480px;
-  --container-md: 640px;
-  --container-lg: 768px;
-  --container-xl: 1024px;
-  --container-2xl: 1280px;
-  --container-page: 1400px; /* Conteneur principal Vinted */
-
-  /* ── Transitions ─────────────────────────────────────────────────────────── */
-
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-snappy: cubic-bezier(0.23, 1, 0.32, 1);
+  /* ── Transitions ── */
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* ── Animations ──────────────────────────────────────────────────────────── */
-
+  /* ── Animations ── */
   --animate-fade-in: fade-in 200ms ease-out;
   --animate-slide-up: slide-up 250ms cubic-bezier(0.23, 1, 0.32, 1);
-  --animate-slide-down: slide-down 250ms cubic-bezier(0.23, 1, 0.32, 1);
   --animate-scale-in: scale-in 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  --animate-shimmer: shimmer 2s linear infinite;
-  --animate-heart: heart-pop 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
   @keyframes fade-in {
     from {
@@ -188,7 +78,6 @@
       opacity: 1;
     }
   }
-
   @keyframes slide-up {
     from {
       transform: translateY(8px);
@@ -199,18 +88,6 @@
       opacity: 1;
     }
   }
-
-  @keyframes slide-down {
-    from {
-      transform: translateY(-8px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
   @keyframes scale-in {
     from {
       transform: scale(0.95);
@@ -222,68 +99,23 @@
     }
   }
 
-  @keyframes shimmer {
-    from {
-      background-position: -200% 0;
-    }
-    to {
-      background-position: 200% 0;
-    }
-  }
-
-  @keyframes heart-pop {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.3);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-
-  /* ── Z-index ─────────────────────────────────────────────────────────────── */
-
-  --z-sticky: 100; /* Header sticky */
-  --z-overlay: 200; /* Overlay backdrop */
-  --z-modal: 300; /* Modales */
-  --z-toast: 400; /* Notifications toast */
-  --z-tooltip: 500; /* Tooltips */
+  /* ── Z-index ── */
+  --z-sticky: 100;
+  --z-modal: 300;
+  --z-toast: 400;
+  --z-tooltip: 500;
 }
 
-/* ── Utilitaires custom ────────────────────────────────────────────────────── */
+/* ── Utilitaires ── */
 
-@utility button {
-  background-color: var(--color-lagoon-500);
-  border-radius: var(--radius);
-  font-size: var(--text-xs);
-  line-height: var(--tw-leading, var(--text-xs--line-height));
-  padding-block: calc(var(--spacing) * 1);
-  padding-inline: calc(var(--spacing) * 2);
-  border-style: var(--tw-border-style);
-  border-width: 1px;
-  cursor: pointer;
+.animate-border {
+  @apply border-border-strong hover:border-solid hover:border-border-focus border transition;
 }
 
-@utility publish-section {
-  > :last-child {
-    border: none;
-  }
+.transition {
+  transition: all 400ms var(--ease-smooth);
 }
 
-.show-over .show {
-  display: none;
-}
-
-.show-over:hover .show {
-  display: block;
-}
-
-.publish-input {
-  @apply w-1/2 mx-4 border-b border-solid border-ink-light outline-none focus:outline-none focus:ring-0  focus:border-lagoon-400;
-}
-
-.input-form {
-  @apply border-b border-border-strong focus:border-border-focus focus:outline-none focus:ring-0 text-sm;
+.link {
+  @apply text-ink-muted hover:text-marvel-500 font-semibold no-underline hover:underline hover:decoration-2 underline-offset-4;
 }
