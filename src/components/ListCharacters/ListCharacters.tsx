@@ -1,20 +1,55 @@
 import type { Character } from "@/types";
-import type { ListCharactersProps } from "./types";
-import { CardCharacter } from "../Character";
+import { FORMAT, type ListCharactersProps } from "./types";
+import { SquareCardCharacter } from "@/components/Character";
+import { LightCardCharacter } from "../Character/LightCardCharacter";
+import { FullCardCharacter } from "../Character/FullCardCharacter";
+import { cn } from "@/helpers/cn";
+import { HEIGHT_TOP } from "@/constants";
 
-export const ListCharacters = ({ total, list }: ListCharactersProps) => {
+export const ListCharacters = ({
+  list,
+  selected,
+  format = FORMAT.grid,
+  onSelectionChange,
+}: ListCharactersProps) => {
   return (
-    <section className="w-full">
-      <p className="text-xs text-ink-light p-4 w-full flex justify-center font-semibold">
-        {total} PERSONNAGES
-      </p>
-      <ul className="flex flex-wrap gap-3 justify-center">
-        {list.map((character: Character) => (
-          <li key={crypto.randomUUID()}>
-            <CardCharacter {...character} />
-          </li>
-        ))}
-      </ul>
+    <section className="w-full p-4">
+      {format === FORMAT.grid && (
+        <ul className="flex flex-wrap gap-3 justify-center">
+          {list.map((character: Character) => (
+            <li key={character.id}>
+              <SquareCardCharacter
+                {...character}
+                selected={character.id === selected?.character.id}
+                onClick={onSelectionChange}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
+      {format === FORMAT.list && (
+        <div
+          className={cn(`flex gap-4 min-h-150 h-[calc(100vh-${HEIGHT_TOP}px)]`)}
+        >
+          <ul className="flex flex-col gap-3 px-4 overflow-y-auto w-100">
+            {list.map((character: Character) => (
+              <li key={character.id}>
+                <LightCardCharacter
+                  {...character}
+                  selected={character.id === selected?.character.id}
+                  onClick={onSelectionChange}
+                />
+              </li>
+            ))}
+          </ul>
+          {selected && (
+            <FullCardCharacter
+              {...selected.character}
+              comics={selected.comics}
+            />
+          )}
+        </div>
+      )}
     </section>
   );
 };

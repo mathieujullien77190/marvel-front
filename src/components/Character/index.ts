@@ -1,1 +1,1 @@
-export { CardCharacter } from "./CardCharacter";
+export { SquareCardCharacter } from "./SquareCardCharacter";

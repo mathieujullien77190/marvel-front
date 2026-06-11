@@ -1,0 +1,1 @@
+export { LightCardComic } from "./LightCardComic";

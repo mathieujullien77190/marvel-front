@@ -1,8 +1,9 @@
 import { cn } from "@/helpers/cn";
-import { FaSearch } from "react-icons/fa";
-import marvelLogo from "@/assets/logo.png";
 
-export const Header = () => {
+import marvelLogo from "@/assets/logo.png";
+import type { HeaderProps } from "./types";
+
+export const Header = ({ children }: HeaderProps) => {
   return (
     <header
       className={cn(
@@ -16,16 +17,7 @@ export const Header = () => {
           <img src={marvelLogo} alt="MARVEL logo" className="h-10 " />
         </a>
       </h1>
-      <div className="w-1/2 bg-canvas flex gap-2 items-center rounded p-2 cursor-text animate-border">
-        <FaSearch className="text-ink-light" />
-        <input
-          className="focus:outline-none focus:ring-0 text  w-full rounded"
-          type="text"
-          name="search"
-          id="search"
-          placeholder="Rechercher un personnage..."
-        />
-      </div>
+      {children}
       <nav className="flex gap-2">
         <a href="#" className="link transition">
           Personnages
