@@ -1,17 +1,16 @@
+import type { Favorites } from "@/types";
 import { api } from "./fetch";
 
 export type postSignupProps = {
   email: string;
   username: string;
   password: string;
-  newsletter: boolean;
 };
 
 export type ResponseSignup = {
-  account: { username: string };
-  email: string;
+  username: string;
   token: string;
-  _id: string;
+  favorites: Favorites;
 };
 
 export const postSignup = (params: postSignupProps): Promise<ResponseSignup> =>

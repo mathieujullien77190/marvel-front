@@ -1,16 +1,16 @@
 import { cn } from "@/helpers/cn";
 import { formatName } from "./helpers";
 import type { CardCharacterProps } from "./types";
-import Favorites from "@/components/Favorites";
 import { getSmallImage } from "@/helpers/utils";
 import ImageLoader from "@/components/ImageLoader";
+import { FavoritesCharacter } from "./FavoritesCharacter";
 
 export const LightCardCharacter = ({
   onClick = () => {},
   selected,
   ...props
 }: CardCharacterProps) => {
-  const { image, name, id } = props;
+  const { image, name } = props;
 
   return (
     <div
@@ -30,7 +30,7 @@ export const LightCardCharacter = ({
 
       <div className="w-full flex justify-between items-center gap-1">
         <p className="text font-semibold line-clamp-1">{formatName(name)}</p>
-        <Favorites key="characters" id={id} />
+        <FavoritesCharacter {...props} />
       </div>
     </div>
   );

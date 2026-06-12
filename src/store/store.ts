@@ -1,9 +1,11 @@
-import { DEBOUNCE_FETCH } from "@/constants";
+import { login, logout } from "@/helpers/user";
 import { getCharacters } from "@/services/getCharacters";
 import { getComics } from "@/services/getComics";
 import { getComicsOfCharacter } from "@/services/getComicsOfCharacter";
-import type { Character, Comic } from "@/types";
+import { putFavorites } from "@/services/putFavorites";
+import type { Character, Comic, User } from "@/types";
 import { create } from "zustand";
+import { hasCharacter, hasComic, isValidCharacter } from "./helpers";
 
 export type SelectedCharacterType = { character: Character; comics: Comic[] };
 
@@ -14,10 +16,7 @@ export type Search = {
 };
 
 type State = {
-  favorites: {
-    characters: string[];
-    comics: string[];
-  };
+  user: User;
   characters: {
     list: Character[];
     total: number;
@@ -29,8 +28,13 @@ type State = {
     total: number;
     search: Search;
   };
-  toggleFavoritesCharacter: (id: string) => void;
-  isFavoritesCharacter: (id: string) => boolean;
+
+  resetUser: () => void;
+  setUser: (user: User) => void;
+  addFavoriteCharacter: (value: Omit<Character, "comics">) => void;
+  removeFavoriteCharacter: (id: string) => void;
+  addFavoriteComic: (value: Comic) => void;
+  removeFavoriteComic: (id: string) => void;
   setCharactersSearch: (search: Search) => void;
   setComicsSearch: (search: Search) => void;
   toggleSelected: (value: Character) => void;
@@ -40,9 +44,13 @@ type State = {
 };
 
 const defaultStore = {
-  favorites: {
-    characters: [],
-    comics: [],
+  user: {
+    username: undefined,
+    token: undefined,
+    favorites: {
+      characters: [],
+      comics: [],
+    },
   },
   characters: {
     list: [],
@@ -65,28 +73,116 @@ const defaultStore = {
   },
 };
 
-let debounceTimeout: ReturnType<typeof setTimeout> | null = null;
-
-export const useCharactersStore = create<State>((set, get) => ({
+export const useCharactersStore = create<State>((set) => ({
   ...defaultStore,
 
-  toggleFavoritesCharacter: (id) =>
+  resetUser: () => {
+    logout();
+
+    return set(() => {
+      return {
+        user: defaultStore.user,
+      };
+    });
+  },
+
+  setUser: ({ username, token, favorites }) => {
+    if (username && token) login(username, token);
+
+    return set(() => {
+      return {
+        user: {
+          username,
+          token,
+          favorites: {
+            characters: favorites.characters.filter((item) =>
+              isValidCharacter(item),
+            ),
+            comics: favorites.comics,
+          },
+        },
+      };
+    });
+  },
+
+  addFavoriteComic: (value) =>
     set((state) => {
-      const exists = state.favorites.characters.includes(id);
+      const exists = hasComic(state.user.favorites.comics, value.id);
+
+      if (exists) return state; // évite doublon
+
+      const updatedFavorites = {
+        ...state.user.favorites,
+        comics: [...state.user.favorites.comics, value],
+      };
+
+      putFavorites({ favorites: updatedFavorites });
 
       return {
-        favorites: {
-          ...state.favorites,
-          characters: exists
-            ? state.favorites.characters.filter((c) => c !== id)
-            : [...state.favorites.characters, id],
+        user: {
+          ...state.user,
+          favorites: updatedFavorites,
         },
       };
     }),
 
-  isFavoritesCharacter: (id: string) => {
-    return get().favorites.characters.includes(id);
-  },
+  removeFavoriteComic: (id) =>
+    set((state) => {
+      const updatedFavorites = {
+        ...state.user.favorites,
+        comics: state.user.favorites.comics.filter((c) => c.id !== id),
+      };
+
+      putFavorites({ favorites: updatedFavorites });
+
+      return {
+        user: {
+          ...state.user,
+          favorites: updatedFavorites,
+        },
+      };
+    }),
+
+  addFavoriteCharacter: (value) =>
+    set((state) => {
+      const exists = hasCharacter(state.user.favorites.characters, value.id);
+
+      if (exists) return state; // évite doublon
+
+      const updatedFavorites = {
+        ...state.user.favorites,
+        characters: [
+          ...state.user.favorites.characters,
+          { ...value, comics: [] },
+        ],
+      };
+
+      putFavorites({ favorites: updatedFavorites });
+
+      return {
+        user: {
+          ...state.user,
+          favorites: updatedFavorites,
+        },
+      };
+    }),
+
+  removeFavoriteCharacter: (id) =>
+    set((state) => {
+      const updatedFavorites = {
+        ...state.user.favorites,
+        characters: state.user.favorites.characters.filter((c) => c.id !== id),
+      };
+
+      putFavorites({ favorites: updatedFavorites });
+
+      return {
+        user: {
+          ...state.user,
+          favorites: updatedFavorites,
+        },
+      };
+    }),
 
   setCharactersSearch: (value) =>
     set((state) => ({
@@ -126,42 +222,34 @@ export const useCharactersStore = create<State>((set, get) => ({
       },
     })),
   fetchCharacters: async (search) => {
-    if (debounceTimeout) clearTimeout(debounceTimeout);
+    //prefetch des page suivante qui seront mis en cache via les interceptors
+    getCharacters({ ...search, start: search.start + search.limit });
 
-    debounceTimeout = setTimeout(async () => {
-      //prefetch des page suivante qui seront mis en cache via les interceptors
-      getCharacters({ ...search, start: search.start + search.limit });
+    const data = await getCharacters(search);
 
-      const data = await getCharacters(search);
-
-      set((state) => ({
-        characters: {
-          list: data.results,
-          total: data.count,
-          selected: undefined,
-          search: state.characters.search,
-        },
-      }));
-    }, DEBOUNCE_FETCH);
+    set((state) => ({
+      characters: {
+        list: data.results,
+        total: data.count,
+        selected: undefined,
+        search: state.characters.search,
+      },
+    }));
   },
 
   fetchComics: async (search) => {
-    if (debounceTimeout) clearTimeout(debounceTimeout);
+    //prefetch des page suivante qui seront mis en cache via les interceptors
+    getComics({ ...search, start: search.start + search.limit });
 
-    debounceTimeout = setTimeout(async () => {
-      //prefetch des page suivante qui seront mis en cache via les interceptors
-      getComics({ ...search, start: search.start + search.limit });
+    const data = await getComics(search);
 
-      const data = await getComics(search);
-
-      set((state) => ({
-        comics: {
-          list: data.results,
-          total: data.count,
-          search: state.comics.search,
-        },
-      }));
-    }, DEBOUNCE_FETCH);
+    set((state) => ({
+      comics: {
+        list: data.results,
+        total: data.count,
+        search: state.comics.search,
+      },
+    }));
   },
 
   fetchComicsOfCharacter: async (id) => {

@@ -7,6 +7,7 @@ import {
 } from "@/helpers/utils";
 import ImageLoader from "../ImageLoader";
 import { useState } from "react";
+import { FavoritesComic } from "./FavoritesComic";
 
 export const LightCardComic = ({ year, ...props }: CardComicProps) => {
   const { image, title, description } = props;
@@ -37,7 +38,9 @@ export const LightCardComic = ({ year, ...props }: CardComicProps) => {
 
       <div className="flex flex-col gap-2 w-full">
         <p className="text font-semibold line-clamp-1 flex justify-between">
-          <span>{removeValidYear(title)}</span>
+          <span className="flex gap-2 items-center">
+            {removeValidYear(title)} <FavoritesComic {...props} />
+          </span>
           {year && <span>{year}</span>}
         </p>
         <p

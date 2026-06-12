@@ -3,20 +3,16 @@ import { Tag } from "./Tag";
 import type { FullCardCharacterProps } from "./types";
 import { cn } from "@/helpers/cn";
 import { HEIGHT_TOP } from "@/constants";
-import Favorites from "@/components/Favorites";
 import { TypeWriterText } from "./TypeWriterText";
 import { FORMAT } from "@/components/ListComics/types";
 import { useState } from "react";
+import { FavoritesCharacter } from "./FavoritesCharacter";
 
 const MIN_HEIGHT_IMAGE = 150;
 
-export const FullCardCharacter = ({
-  id,
-  image,
-  name,
-  description,
-  comics,
-}: FullCardCharacterProps) => {
+export const FullCardCharacter = ({ ...props }: FullCardCharacterProps) => {
+  const { comics, image, name, description } = props;
+
   const [heightImage, setHeightImage] = useState<number>(MIN_HEIGHT_IMAGE);
 
   return (
@@ -48,7 +44,7 @@ export const FullCardCharacter = ({
       <div className="px-4 flex flex-col gap-4">
         <p className="text-xl font-semibold line-clamp-1 flex justify-between">
           <span>{name}</span>
-          <Favorites key="characters" id={id} />
+          <FavoritesCharacter {...props} comics={[]} />
         </p>
 
         {description && <TypeWriterText text={description} />}

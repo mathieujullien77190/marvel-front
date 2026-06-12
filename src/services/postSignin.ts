@@ -1,16 +1,13 @@
+import type { Favorites } from "@/types";
 import { api } from "./fetch";
 
-export type postSigninProps = {
-  email: string;
-  password: string;
-};
+export type postSigninProps = { email: string; password: string };
 
 export type ResponseSignin = {
-  account: { username: string };
-  email: string;
+  username: string;
   token: string;
-  _id: string;
+  favorites: Favorites;
 };
 
 export const postSignin = (params: postSigninProps): Promise<ResponseSignin> =>
-  api.post(`/user/login`, params);
+  api.post(`/user/signin`, params);
