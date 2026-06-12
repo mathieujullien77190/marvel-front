@@ -32,17 +32,19 @@ export const Comics = () => {
       <Wrapper>
         {comics && (
           <>
-            <Pagination
-              search={comics.search}
-              total={comics.total}
-              label={(v) => (v >= 2 ? "comics" : "comic")}
-              onNext={(start, limit) => {
-                setSearch({ ...comics.search, start, limit });
-              }}
-              onPrev={(start, limit) => {
-                setSearch({ ...comics.search, start, limit });
-              }}
-            />
+            {comics.list.length > 0 && (
+              <Pagination
+                search={comics.search}
+                total={comics.total}
+                label={(v) => (v >= 2 ? "comics" : "comic")}
+                onNext={(start, limit) => {
+                  setSearch({ ...comics.search, start, limit });
+                }}
+                onPrev={(start, limit) => {
+                  setSearch({ ...comics.search, start, limit });
+                }}
+              />
+            )}
 
             <ListComics list={comics.list} format={FORMAT.full} />
           </>

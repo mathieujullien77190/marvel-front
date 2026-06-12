@@ -40,7 +40,7 @@ export const Home = () => {
       <Wrapper>
         {characters && (
           <>
-            {!characters.selected && (
+            {!characters.selected && characters.list.length > 0 && (
               <Pagination
                 search={characters.search}
                 total={characters.total}

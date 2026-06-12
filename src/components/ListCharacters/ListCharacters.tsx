@@ -38,6 +38,7 @@ export const ListCharacters = ({
           style={{ height: `calc(100vh - ${HEIGHT_TOP}px)` }} //not work in tailwind Oo
         >
           <IoIosClose
+            id="closeButton"
             className="absolute top-4 right-4 z-10 cursor-pointer text-white bg-black/40 rounded-full"
             size={30}
             onClick={() => {

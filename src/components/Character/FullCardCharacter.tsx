@@ -6,6 +6,9 @@ import { HEIGHT_TOP } from "@/constants";
 import Favorites from "@/components/Favorites";
 import { TypeWriterText } from "./TypeWriterText";
 import { FORMAT } from "@/components/ListComics/types";
+import { useState } from "react";
+
+const MIN_HEIGHT_IMAGE = 150;
 
 export const FullCardCharacter = ({
   id,
@@ -14,6 +17,8 @@ export const FullCardCharacter = ({
   description,
   comics,
 }: FullCardCharacterProps) => {
+  const [heightImage, setHeightImage] = useState<number>(MIN_HEIGHT_IMAGE);
+
   return (
     <div
       className={cn(
@@ -22,10 +27,21 @@ export const FullCardCharacter = ({
       style={{ height: `calc(100vh - ${HEIGHT_TOP}px)` }} //not work in tailwind Oo
       title={name}
     >
-      <div className="overflow-hidden rounded-t-2xl">
+      <div
+        className="overflow-hidden rounded-t-2xl"
+        onMouseEnter={() => {
+          setHeightImage(window.innerHeight / 2 - HEIGHT_TOP);
+        }}
+        onMouseLeave={(e) => {
+          //hack
+          if ((e.relatedTarget as any)?.id !== "closeButton")
+            setHeightImage(MIN_HEIGHT_IMAGE);
+        }}
+      >
         <img
           src={image}
-          className="w-full h-48 object-cover  transition-transform duration-300 ease-(--ease-smooth) hover:scale-110"
+          className="w-full h-48 object-cover "
+          style={{ height: heightImage, transition: "height 0.3s ease" }}
         />
       </div>
 
