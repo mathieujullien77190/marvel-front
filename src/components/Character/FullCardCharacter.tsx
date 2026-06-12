@@ -26,7 +26,7 @@ export const FullCardCharacter = ({ ...props }: FullCardCharacterProps) => {
       <div
         className="overflow-hidden rounded-t-2xl"
         onMouseEnter={() => {
-          setHeightImage(window.innerHeight / 2 - HEIGHT_TOP);
+          setHeightImage(window.innerHeight / 2);
         }}
         onMouseLeave={(e) => {
           //hack
@@ -44,7 +44,7 @@ export const FullCardCharacter = ({ ...props }: FullCardCharacterProps) => {
       <div className="px-4 flex flex-col gap-4">
         <p className="text-xl font-semibold line-clamp-1 flex justify-between">
           <span>{name}</span>
-          <FavoritesCharacter {...props} comics={[]} />
+          <FavoritesCharacter {...props} comics={comics.length} />
         </p>
 
         {description && <TypeWriterText text={description} />}

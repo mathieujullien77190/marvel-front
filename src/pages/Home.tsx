@@ -16,15 +16,19 @@ export const Home = () => {
   const characters = useCharactersStore((s) => s.characters);
   const setSelected = useCharactersStore((s) => s.toggleSelected);
   const setSearch = useCharactersStore((s) => s.setCharactersSearch);
+  const selected = useCharactersStore((s) => s.selected);
 
   useEffect(() => {
     fetchCharacters(characters.search);
   }, [fetchCharacters, characters.search]);
 
   useEffect(() => {
-    if (characters.selected?.character.id)
-      fetchComicsOfCharacter(characters.selected?.character.id);
-  }, [characters.selected?.character, fetchComicsOfCharacter]);
+    if (selected?.character.id) fetchComicsOfCharacter(selected?.character.id);
+  }, [selected?.character, fetchComicsOfCharacter]);
+
+  useEffect(() => {
+    setSelected(undefined);
+  }, [setSelected]);
 
   return (
     <>
@@ -33,14 +37,16 @@ export const Home = () => {
           placeholder="Rechercher des personnages..."
           value={characters.search.text ?? ""}
           onChange={(v) => {
+            setSelected(undefined);
             setSearch({ ...characters.search, text: v, start: 0 });
           }}
         />
       </Header>
       <Wrapper>
+        <h2 className="title-page">PERSONNAGES</h2>
         {characters && (
           <>
-            {!characters.selected && characters.list.length > 0 && (
+            {!selected && characters.list.length > 0 && (
               <Pagination
                 search={characters.search}
                 total={characters.total}
@@ -56,9 +62,9 @@ export const Home = () => {
 
             <ListCharacters
               list={characters.list}
-              format={characters.selected ? FORMAT.list : FORMAT.grid}
+              format={selected ? FORMAT.list : FORMAT.grid}
               onSelectionChange={setSelected}
-              selected={characters.selected}
+              selected={selected}
             />
           </>
         )}

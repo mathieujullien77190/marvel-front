@@ -125,3 +125,7 @@
 .link {
   @apply text-ink-muted hover:text-marvel-500 font-semibold no-underline hover:underline hover:decoration-2 underline-offset-4 cursor-pointer;
 }
+
+.title-page {
+  @apply text-xl text-ink-muted pt-4 w-full text-center;
+}

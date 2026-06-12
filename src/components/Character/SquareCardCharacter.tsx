@@ -31,7 +31,7 @@ export const SquareCardCharacter = ({
 
       <p className="text font-semibold line-clamp-1">{formatName(name)}</p>
       <FavoritesCharacter {...props} />
-      <Tag value={`${comics.length} COMICS`} />
+      <Tag value={`${comics} COMICS`} />
     </div>
   );
 };

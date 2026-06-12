@@ -17,10 +17,10 @@ export type Search = {
 
 type State = {
   user: User;
+  selected?: SelectedCharacterType;
   characters: {
     list: Character[];
     total: number;
-    selected?: SelectedCharacterType;
     search: Search;
   };
   comics: {
@@ -31,19 +31,20 @@ type State = {
 
   resetUser: () => void;
   setUser: (user: User) => void;
-  addFavoriteCharacter: (value: Omit<Character, "comics">) => void;
+  addFavoriteCharacter: (value: Character) => void;
   removeFavoriteCharacter: (id: string) => void;
   addFavoriteComic: (value: Comic) => void;
   removeFavoriteComic: (id: string) => void;
   setCharactersSearch: (search: Search) => void;
   setComicsSearch: (search: Search) => void;
-  toggleSelected: (value: Character) => void;
+  toggleSelected: (value?: Character) => void;
   fetchCharacters: (search: Search) => Promise<void>;
   fetchComics: (search: Search) => Promise<void>;
   fetchComicsOfCharacter: (id: string) => Promise<void>;
 };
 
 const defaultStore = {
+  selected: undefined,
   user: {
     username: undefined,
     token: undefined,
@@ -55,7 +56,6 @@ const defaultStore = {
   characters: {
     list: [],
     total: 0,
-    selected: undefined,
     search: {
       text: undefined,
       start: 0,
@@ -151,10 +151,7 @@ export const useCharactersStore = create<State>((set) => ({
 
       const updatedFavorites = {
         ...state.user.favorites,
-        characters: [
-          ...state.user.favorites.characters,
-          { ...value, comics: [] },
-        ],
+        characters: [...state.user.favorites.characters, value],
       };
 
       putFavorites({ favorites: updatedFavorites });
@@ -210,17 +207,16 @@ export const useCharactersStore = create<State>((set) => ({
 
   toggleSelected: (value) =>
     set((state) => ({
-      characters: {
-        ...state.characters,
-        selected:
-          state.characters.selected?.character.id === value.id
-            ? undefined
-            : {
-                character: value,
-                comics: [],
-              },
-      },
+      selected: value
+        ? state.selected?.character.id === value.id
+          ? undefined
+          : {
+              character: value,
+              comics: [],
+            }
+        : undefined,
     })),
+
   fetchCharacters: async (search) => {
     //prefetch des page suivante qui seront mis en cache via les interceptors
     getCharacters({ ...search, start: search.start + search.limit });
@@ -256,15 +252,12 @@ export const useCharactersStore = create<State>((set) => ({
     const data = await getComicsOfCharacter({ id });
 
     set((state) => {
-      if (!state.characters.selected) return state;
+      if (!state.selected) return state;
 
       return {
-        characters: {
-          ...state.characters,
-          selected: {
-            ...state.characters.selected,
-            comics: data.results,
-          },
+        selected: {
+          ...state.selected,
+          comics: data.results,
         },
       };
     });

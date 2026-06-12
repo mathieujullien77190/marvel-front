@@ -13,10 +13,15 @@ export const Comics = () => {
   const fetchComics = useCharactersStore((s) => s.fetchComics);
   const comics = useCharactersStore((s) => s.comics);
   const setSearch = useCharactersStore((s) => s.setComicsSearch);
+  const toggleSelected = useCharactersStore((s) => s.toggleSelected);
 
   useEffect(() => {
     fetchComics(comics.search);
   }, [fetchComics, comics.search]);
+
+  useEffect(() => {
+    toggleSelected(undefined);
+  }, [toggleSelected]);
 
   return (
     <>
@@ -30,6 +35,7 @@ export const Comics = () => {
         />
       </Header>
       <Wrapper>
+        <h2 className="title-page">COMICS</h2>
         {comics && (
           <>
             {comics.list.length > 0 && (
