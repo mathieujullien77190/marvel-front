@@ -113,6 +113,9 @@
 }
 
 /* ── Utilitaires ── */
+.input {
+  @apply w-full bg-canvas flex gap-2 items-center rounded p-2 cursor-text border-border-strong hover:border-solid hover:border-border-focus border transition focus:outline-none focus:ring-0;
+}
 
 .animate-border {
   @apply border-border-strong hover:border-solid hover:border-border-focus border transition;

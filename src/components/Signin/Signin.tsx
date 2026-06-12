@@ -75,11 +75,12 @@ export const Signin = ({ show, onClose }: SigninProps) => {
                 Username
               </label>
               <input
+                autoComplete="off"
                 type="text"
                 placeholder="Username"
                 id="username"
                 name="username"
-                className="w-full bg-canvas flex gap-2 items-center rounded p-2 cursor-text animate-border focus:outline-none focus:ring-0 text  "
+                className="input"
                 formNoValidate
                 value={user.username ?? ""}
                 onChange={(e) => {
@@ -93,11 +94,12 @@ export const Signin = ({ show, onClose }: SigninProps) => {
             Email
           </label>
           <input
+            autoComplete="off"
             type="text"
             placeholder="Email"
             id="email"
             name="email"
-            className="w-full bg-canvas flex gap-2 items-center rounded p-2 cursor-text animate-border focus:outline-none focus:ring-0 text  "
+            className="input"
             formNoValidate
             value={user.email ?? ""}
             onChange={(e) => {
@@ -108,11 +110,12 @@ export const Signin = ({ show, onClose }: SigninProps) => {
             Mot de passe
           </label>
           <input
+            autoComplete="off"
             type="password"
             placeholder="Mot de passe"
             id="password"
             name="password"
-            className="w-full bg-canvas flex gap-2 items-center rounded p-2 cursor-text animate-border focus:outline-none focus:ring-0 text "
+            className="input"
             value={user.password ?? ""}
             onChange={(e) => {
               setUser((prev) => ({ ...prev, password: e.target.value }));

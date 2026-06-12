@@ -15,7 +15,7 @@ api.interceptors.request.use((config) => {
   if (token) config.headers.Authorization = `Bearer ${token}`;
 
   // cache uniquement GET
-  if (config.method === "get") {
+  if (config.method === "get" && config.url !== "/favorites") {
     const key = config.url + JSON.stringify(config.params || {});
 
     if (cache.has(key)) {

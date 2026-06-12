@@ -4,6 +4,7 @@ import ListCharacters from "@/components/ListCharacters";
 import { FORMAT } from "@/components/ListCharacters/types";
 import Search from "@/components/Search";
 import { Wrapper } from "@/components/Wrapper";
+import { ROUTES } from "@/constants";
 import { useCharactersStore } from "@/store/store";
 import { useEffect, useState } from "react";
 
@@ -30,7 +31,7 @@ export const FavoritesCharacters = () => {
   }, [toggleSelected]);
 
   return (
-    <Auth>
+    <Auth to={ROUTES.characters}>
       <Header>
         <Search
           placeholder="Rechercher des personnages dans ses favoris"

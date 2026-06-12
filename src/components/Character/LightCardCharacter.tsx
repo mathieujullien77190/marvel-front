@@ -4,6 +4,7 @@ import type { CardCharacterProps } from "./types";
 import { getSmallImage } from "@/helpers/utils";
 import ImageLoader from "@/components/ImageLoader";
 import { FavoritesCharacter } from "./FavoritesCharacter";
+import { useScroll } from "@/hooks/useScroll";
 
 export const LightCardCharacter = ({
   onClick = () => {},
@@ -12,8 +13,11 @@ export const LightCardCharacter = ({
 }: CardCharacterProps) => {
   const { image, name } = props;
 
+  const ref = useScroll(!!selected);
+
   return (
     <div
+      ref={ref}
       className={cn(
         "bg-canvas-card p-4 flex items-center gap-2 rounded-xl border border-solid border-border cursor-pointer animate-border",
         selected ? "bg-marvel-50" : "bg-canvas-card",

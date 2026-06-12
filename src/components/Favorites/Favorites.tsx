@@ -14,7 +14,7 @@ export const Favorites = ({ isActive, onActivate }: FavoritesProps) => {
         <>
           {isActive ? (
             <FaHeart
-              className="cursor-pointer text-marvel-500"
+              className="cursor-pointer text-marvel-500 flex-none"
               onClick={(e) => {
                 e.stopPropagation();
                 onActivate(false);
@@ -22,7 +22,7 @@ export const Favorites = ({ isActive, onActivate }: FavoritesProps) => {
             />
           ) : (
             <FaRegHeart
-              className="cursor-pointer hover:text-marvel-500"
+              className="cursor-pointer hover:text-marvel-500 flex-none"
               onClick={(e) => {
                 e.stopPropagation();
                 onActivate(true);

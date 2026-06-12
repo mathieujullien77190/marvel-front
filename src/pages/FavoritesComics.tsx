@@ -1,3 +1,4 @@
+import { Auth } from "@/components/Auth";
 import Header from "@/components/Header";
 
 import ListComics from "@/components/ListComics";
@@ -5,6 +6,7 @@ import { FORMAT } from "@/components/ListComics/types";
 import Search from "@/components/Search";
 
 import { Wrapper } from "@/components/Wrapper";
+import { ROUTES } from "@/constants";
 import { useCharactersStore } from "@/store/store";
 import { useEffect, useState } from "react";
 
@@ -23,7 +25,7 @@ export const FavoritesComics = () => {
   }, [setSelected]);
 
   return (
-    <>
+    <Auth to={ROUTES.comics}>
       <Header>
         <Search
           placeholder="Rechercher des comics dans ses favoris"
@@ -35,6 +37,6 @@ export const FavoritesComics = () => {
         <h2 className="title-page">COMICS FAVORIS</h2>
         {comics && <ListComics list={searchComics} format={FORMAT.full} />}
       </Wrapper>
-    </>
+    </Auth>
   );
 };

@@ -17,6 +17,7 @@ export type Search = {
 
 type State = {
   user: User;
+  isConnected: boolean;
   selected?: SelectedCharacterType;
   characters: {
     list: Character[];
@@ -45,6 +46,7 @@ type State = {
 
 const defaultStore = {
   selected: undefined,
+  isConnected: false,
   user: {
     username: undefined,
     token: undefined,
@@ -81,6 +83,7 @@ export const useCharactersStore = create<State>((set) => ({
 
     return set(() => {
       return {
+        isConnected: false,
         user: defaultStore.user,
       };
     });
@@ -91,6 +94,7 @@ export const useCharactersStore = create<State>((set) => ({
 
     return set(() => {
       return {
+        isConnected: true,
         user: {
           username,
           token,
