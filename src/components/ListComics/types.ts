@@ -1,8 +1,8 @@
 import type { Comic } from "@/types";
 
 export enum FORMAT {
-  grid = "grid",
-  list = "list",
+  full = "full",
+  in = "in",
 }
 
 export type ListComicsProps = {

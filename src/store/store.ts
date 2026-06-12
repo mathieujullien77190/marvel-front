@@ -129,6 +129,9 @@ export const useCharactersStore = create<State>((set, get) => ({
     if (debounceTimeout) clearTimeout(debounceTimeout);
 
     debounceTimeout = setTimeout(async () => {
+      //prefetch des page suivante qui seront mis en cache via les interceptors
+      getCharacters({ ...search, start: search.start + search.limit });
+
       const data = await getCharacters(search);
 
       set((state) => ({
@@ -146,6 +149,9 @@ export const useCharactersStore = create<State>((set, get) => ({
     if (debounceTimeout) clearTimeout(debounceTimeout);
 
     debounceTimeout = setTimeout(async () => {
+      //prefetch des page suivante qui seront mis en cache via les interceptors
+      getComics({ ...search, start: search.start + search.limit });
+
       const data = await getComics(search);
 
       set((state) => ({

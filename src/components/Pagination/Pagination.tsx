@@ -12,7 +12,7 @@ export const Pagination = ({
     <div className="flex p-4 justify-between ">
       {search.start > 0 && (
         <button
-          className="text-xs link transition"
+          className="text-sm link transition"
           onClick={() => {
             onPrev(search.start - search.limit, search.limit);
           }}
@@ -20,13 +20,13 @@ export const Pagination = ({
           Précédent
         </button>
       )}
-      <p className="text-xs text-ink-light w-full flex justify-center font-semibold">
+      <p className="text-sm text-ink-light w-full flex justify-center font-semibold">
         {generateText({ search, total, label })}
       </p>
 
       {search.start + search.limit < total && (
         <button
-          className="text-xs link transition"
+          className="text-sm link transition"
           onClick={() => {
             onNext(search.start + search.limit, search.limit);
           }}

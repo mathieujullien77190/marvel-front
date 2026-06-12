@@ -6,6 +6,7 @@ import { FullCardCharacter } from "../Character/FullCardCharacter";
 import { cn } from "@/helpers/cn";
 import { HEIGHT_TOP } from "@/constants";
 import { IoIosClose } from "react-icons/io";
+import ScrollTop from "@/components/ScrollTop";
 
 export const ListCharacters = ({
   list,
@@ -16,17 +17,20 @@ export const ListCharacters = ({
   return (
     <section className="w-full p-4">
       {format === FORMAT.grid && (
-        <ul className="flex flex-wrap gap-3 justify-center">
-          {list.map((character: Character) => (
-            <li key={character.id}>
-              <SquareCardCharacter
-                {...character}
-                selected={character.id === selected?.character.id}
-                onClick={onSelectionChange}
-              />
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul className="flex flex-wrap gap-3 justify-center">
+            {list.map((character: Character) => (
+              <li key={character.id}>
+                <SquareCardCharacter
+                  {...character}
+                  selected={character.id === selected?.character.id}
+                  onClick={onSelectionChange}
+                />
+              </li>
+            ))}
+          </ul>
+          <ScrollTop />
+        </>
       )}
       {format === FORMAT.list && (
         <div

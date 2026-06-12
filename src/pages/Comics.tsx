@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 
 import ListComics from "@/components/ListComics";
+import { FORMAT } from "@/components/ListComics/types";
 import Pagination from "@/components/Pagination";
 import Search from "@/components/Search";
 import { Wrapper } from "@/components/Wrapper";
@@ -43,7 +44,7 @@ export const Comics = () => {
               }}
             />
 
-            <ListComics list={comics.list} />
+            <ListComics list={comics.list} format={FORMAT.full} />
           </>
         )}
       </Wrapper>

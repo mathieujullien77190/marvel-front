@@ -10,6 +10,7 @@ export const Header = ({ children }: HeaderProps) => {
   return (
     <header
       className={cn(
+        "bg-white sticky top-0 z-40",
         "flex justify-between items-center",
         "py-4 px-6",
         "border-b border-solid border-b-border-strong",

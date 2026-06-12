@@ -3,8 +3,9 @@ import { Tag } from "./Tag";
 import type { FullCardCharacterProps } from "./types";
 import { cn } from "@/helpers/cn";
 import { HEIGHT_TOP } from "@/constants";
-import Favorites from "../Favorites";
+import Favorites from "@/components/Favorites";
 import { TypeWriterText } from "./TypeWriterText";
+import { FORMAT } from "@/components/ListComics/types";
 
 export const FullCardCharacter = ({
   id,
@@ -40,7 +41,7 @@ export const FullCardCharacter = ({
       </div>
 
       <div className="flex-1 overflow-y-auto m-4 ml-0">
-        <ListComics list={comics} />
+        <ListComics list={comics} format={FORMAT.in} />
       </div>
     </div>
   );
