@@ -1,6 +1,7 @@
 import { cn } from "@/helpers/cn";
 import { generateText } from "./helpers";
 import type { PaginationProps } from "./types";
+import { DEVICE, useDevice } from "@/hooks/useDevice";
 
 export const Pagination = ({
   search,
@@ -12,8 +13,10 @@ export const Pagination = ({
   const hasPrev = search.start > 0;
   const hasNext = search.start + search.limit < total;
 
+  const device = useDevice();
+
   return (
-    <div className="flex p-4 justify-between ">
+    <div className="flex p-4 justify-between sticky top-20">
       <button
         className={cn(
           "text-sm link transition w-25 ",
@@ -26,9 +29,11 @@ export const Pagination = ({
         Précédent
       </button>
 
-      <p className="text-sm text-ink-light w-full flex justify-center font-semibold">
-        {generateText({ search, total, label, hasPrev, hasNext })}
-      </p>
+      {device === DEVICE.desktop && (
+        <p className="text-sm text-ink-light w-full flex justify-center font-semibold text-center">
+          {generateText({ search, total, label, hasPrev, hasNext })}
+        </p>
+      )}
 
       <button
         className={cn(

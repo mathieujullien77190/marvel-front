@@ -9,7 +9,7 @@ export const User = ({
   onClickLogout,
 }: UserProps) => {
   return (
-    <div className="w-20 flex justify-center">
+    <div className="w-20 flex justify-center fixed right-3 top-5 md:relative md:right-auto md:top-auto">
       {username && token ? (
         <div className="flex flex-col items-center text-xs font-bold text-ink-muted">
           <PiSignOutBold

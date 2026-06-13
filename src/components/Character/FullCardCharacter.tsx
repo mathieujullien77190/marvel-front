@@ -2,26 +2,32 @@ import ListComics from "../ListComics";
 import { Tag } from "./Tag";
 import type { FullCardCharacterProps } from "./types";
 import { cn } from "@/helpers/cn";
-import { HEIGHT_TOP } from "@/constants";
 import { TypeWriterText } from "./TypeWriterText";
 import { FORMAT } from "@/components/ListComics/types";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FavoritesCharacter } from "./FavoritesCharacter";
+import { HEIGHT_TOP, HEIGHT_TOP_TABLET } from "@/constants";
+import { DEVICE, useDevice } from "@/hooks/useDevice";
 
 const MIN_HEIGHT_IMAGE = 150;
 
 export const FullCardCharacter = ({ ...props }: FullCardCharacterProps) => {
   const { comics, image, name, description } = props;
 
+  const refContainer = useRef<HTMLDivElement>(null);
   const [heightImage, setHeightImage] = useState<number>(MIN_HEIGHT_IMAGE);
+
+  const device = useDevice();
+  const height = device === DEVICE.desktop ? HEIGHT_TOP : HEIGHT_TOP_TABLET;
 
   return (
     <div
       className={cn(
         `bg-canvas-card w-full rounded-2xl border border-solid border-border-strong flex flex-col gap-4 min-h-150 `,
       )}
-      style={{ height: `calc(100vh - ${HEIGHT_TOP}px)` }} //not work in tailwind Oo
+      style={{ height: `calc(100vh - ${height}px)` }} //not work in tailwind Oo
       title={name}
+      ref={refContainer}
     >
       <div
         className="overflow-hidden rounded-t-2xl"

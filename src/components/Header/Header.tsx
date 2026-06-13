@@ -34,8 +34,8 @@ export const Header = ({ children }: HeaderProps) => {
       <header
         className={cn(
           "bg-white sticky top-0 z-40",
-          "flex justify-between items-center gap-4",
-          "py-4 px-6 h-18.75",
+          "flex justify-between items-center gap-4 flex-col md:flex-row",
+          "py-4 px-6 h-46 md:h-18.75",
           "border-b border-solid border-b-border-strong",
         )}
       >

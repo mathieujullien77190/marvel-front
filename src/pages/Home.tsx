@@ -31,10 +31,6 @@ export const Home = () => {
             <li>Compte utilisateur + autoconnexion</li>
             <li>Mise en favoris des personnages et comics</li>
           </ul>
-          <h3 className="font-bold py-4">A venir</h3>
-          <ul className="list-disc px-10">
-            <li>Adaptation pour petit écran</li>
-          </ul>
         </div>
       </Wrapper>
     </>

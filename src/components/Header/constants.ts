@@ -18,12 +18,12 @@ export const LINKS = {
   },
   favoritesComics: {
     id: "favoritesComics",
-    text: "Comics favoris",
+    text: "Mes comics",
     route: ROUTES.favoritesComics,
   },
   favoritesCharacter: {
     id: "favoritesCharacter",
-    text: "Personnages favoris",
+    text: "Mes persos",
     route: ROUTES.favoritesCharacters,
   },
 };

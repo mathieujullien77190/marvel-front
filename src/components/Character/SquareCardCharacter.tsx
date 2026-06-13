@@ -16,7 +16,7 @@ export const SquareCardCharacter = ({
   return (
     <div
       className={cn(
-        "p-4 flex flex-col gap-2 items-center rounded-xl border border-solid border-border w-50 h-50 cursor-pointer animate-border",
+        "p-4 flex flex-col gap-2 items-center rounded-xl border border-solid border-border w-full h-full cursor-pointer animate-border",
         selected ? "bg-marvel-50" : "bg-canvas-card",
       )}
       title={name}

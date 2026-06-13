@@ -15,6 +15,7 @@ export const Search = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    //fonctionne mieux que le onblur
     const handleClickOutside = (event: MouseEvent) => {
       if (
         wrapperRef.current &&
@@ -49,7 +50,6 @@ export const Search = ({
             onChange(e.target.value)
           }
           onFocus={() => setOpen(true)}
-          // onBlur={() => setOpen(false)}
         />
 
         {value.length > 0 && (

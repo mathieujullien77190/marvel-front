@@ -4,9 +4,10 @@ import { SquareCardCharacter } from "@/components/Character";
 import { LightCardCharacter } from "../Character/LightCardCharacter";
 import { FullCardCharacter } from "../Character/FullCardCharacter";
 import { cn } from "@/helpers/cn";
-import { HEIGHT_TOP } from "@/constants";
 import ScrollTop from "@/components/ScrollTop";
 import { Close } from "./Close";
+import { DEVICE, useDevice } from "@/hooks/useDevice";
+import { HEIGHT_TOP } from "@/constants";
 
 export const ListCharacters = ({
   list,
@@ -14,13 +15,15 @@ export const ListCharacters = ({
   format = FORMAT.grid,
   onSelectionChange,
 }: ListCharactersProps) => {
+  const device = useDevice();
+
   return (
     <section className="w-full p-4">
       {format === FORMAT.grid && (
         <>
-          <ul className="flex flex-wrap gap-3 justify-center">
+          <ul className="flex flex-col md:flex-row md:flex-wrap gap-3 justify-center">
             {list.map((character: Character) => (
-              <li key={character.id}>
+              <li key={character.id} className="w-full md:w-50 h-50">
                 <SquareCardCharacter
                   {...character}
                   selected={character.id === selected?.character.id}
@@ -43,17 +46,19 @@ export const ListCharacters = ({
             }}
           />
 
-          <ul className="flex flex-col gap-3 px-4 overflow-y-auto w-100">
-            {list.map((character: Character) => (
-              <li key={character.id}>
-                <LightCardCharacter
-                  {...character}
-                  selected={character.id === selected?.character.id}
-                  onClick={onSelectionChange}
-                />
-              </li>
-            ))}
-          </ul>
+          {device === DEVICE.desktop && (
+            <ul className="flex flex-col gap-3 px-4 overflow-y-auto w-100">
+              {list.map((character: Character) => (
+                <li key={character.id}>
+                  <LightCardCharacter
+                    {...character}
+                    selected={character.id === selected?.character.id}
+                    onClick={onSelectionChange}
+                  />
+                </li>
+              ))}
+            </ul>
+          )}
           {selected && (
             <FullCardCharacter
               {...selected.character}

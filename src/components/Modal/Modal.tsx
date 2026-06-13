@@ -13,7 +13,7 @@ export const Modal = ({
     <>
       {show && (
         <div className="fixed w-screen h-screen bg-black/50 flex justify-center items-center top-0 left-0 z-50">
-          <div className="w-1/4 bg-white rounded-2xl border border-solid border-ink-light shadow-lg ">
+          <div className="w-75 bg-white rounded-2xl border border-solid border-ink-light shadow-lg ">
             <div className="flex p-4 justify-between border-b border-solid border-ink-light">
               <h1 className="text-xl font-bold">{title}</h1>
               <span

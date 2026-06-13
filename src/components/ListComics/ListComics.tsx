@@ -16,7 +16,7 @@ export const ListComics = ({ list, format }: ListComicsProps) => {
             <div
               className={cn(
                 "text-xl font-bold sticky bg-canvas-card p-2 z-10 rounded-sm",
-                format === FORMAT.full ? "top-20" : "top-0",
+                format === FORMAT.full ? "top-47 md:top-20" : "top-0",
               )}
             >
               {key === "no_date" ? "autres" : key}
