@@ -5,4 +5,5 @@ export type SearchProps = {
   placeholder: string;
   choices?: Choice[];
   onChange: (value: string) => void;
+  onAutocompleteSelect?: (value: string) => void;
 };

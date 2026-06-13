@@ -123,6 +123,7 @@ export const useStore = create<State>((set) => ({
       characters: {
         ...state.characters,
         search: {
+          id: value.id,
           text: value.text,
           start: value.start,
           limit: value.limit,
@@ -135,6 +136,7 @@ export const useStore = create<State>((set) => ({
       comics: {
         ...state.comics,
         search: {
+          id: value.id,
           text: value.text,
           start: value.start,
           limit: value.limit,

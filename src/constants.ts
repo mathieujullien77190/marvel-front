@@ -8,6 +8,7 @@ export const ROUTES = {
 };
 
 export const BASE_PATH_API = "https://site--marvel-back--d47pxmpggz5l.code.run";
+//export const BASE_PATH_API = "http://localhost:3000";
 
 export const HEIGHT_TOP = 132 + 44;
 

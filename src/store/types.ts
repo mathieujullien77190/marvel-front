@@ -3,6 +3,7 @@ import type { Character, Comic, User } from "@/types";
 export type SelectedCharacterType = { character: Character; comics: Comic[] };
 
 export type Search = {
+  id?: string;
   text?: string;
   start: number;
   limit: number;

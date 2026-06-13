@@ -20,6 +20,7 @@ export const Header = ({ children }: HeaderProps) => {
   const user = useStore((s) => s.user);
   const resetUser = useStore((s) => s.resetUser);
   const toggleSelected = useStore((s) => s.toggleSelected);
+  const setCharactersSearch = useStore((s) => s.setCharactersSearch);
 
   useAutoConnect();
 
@@ -41,7 +42,18 @@ export const Header = ({ children }: HeaderProps) => {
         )}
       >
         <h1 className="text-marvel-500 text-xl font-semibold flex-none">
-          <Link to={ROUTES.home} onClick={() => toggleSelected(undefined)}>
+          <Link
+            to={ROUTES.home}
+            onClick={() => {
+              toggleSelected(undefined);
+              setCharactersSearch({
+                text: "",
+                limit: 100,
+                start: 0,
+                id: undefined,
+              });
+            }}
+          >
             <img src={marvelLogo} alt="MARVEL logo" className="h-10 " />
           </Link>
         </h1>

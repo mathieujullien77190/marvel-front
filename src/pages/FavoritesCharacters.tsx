@@ -20,8 +20,6 @@ export const FavoritesCharacters = () => {
     item.name.toLowerCase().includes(value.toLowerCase()),
   );
 
-  const choices = characters.map((v) => ({ id: v.id, name: v.name }));
-
   useEffect(() => {
     if (selected?.character.id) fetchComicsOfCharacter(selected?.character.id);
   }, [selected?.character, fetchComicsOfCharacter]);
@@ -40,7 +38,6 @@ export const FavoritesCharacters = () => {
             toggleSelected(undefined);
             setValue(v);
           }}
-          choices={choices}
         />
       </Header>
       <Wrapper>

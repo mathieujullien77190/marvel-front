@@ -4,6 +4,7 @@ import { FORMAT } from "@/components/ListCharacters/types";
 import Pagination from "@/components/Pagination";
 import Search from "@/components/Search";
 import { Wrapper } from "@/components/Wrapper";
+import { getChoicesCharacter } from "@/helpers/utils";
 import { useStore } from "@/store";
 
 import { useEffect } from "react";
@@ -18,9 +19,7 @@ export const Home = () => {
     selected,
   } = useStore();
 
-  const searchString = useStore((s) => s.characters.search.text);
-
-  const choices = characters.list.map((v) => ({ id: v.id, name: v.name }));
+  const choices = getChoicesCharacter(characters.list);
 
   useEffect(() => {
     fetchCharacters(characters.search);
@@ -42,7 +41,15 @@ export const Home = () => {
           value={characters.search.text ?? ""}
           onChange={(v) => {
             toggleSelected(undefined);
-            setCharactersSearch({ ...characters.search, text: v, start: 0 });
+            setCharactersSearch({
+              ...characters.search,
+              text: v,
+              start: 0,
+              id: undefined,
+            });
+          }}
+          onAutocompleteSelect={(value) => {
+            setCharactersSearch({ ...characters.search, id: value });
           }}
           choices={choices}
         />
@@ -52,28 +59,37 @@ export const Home = () => {
         {characters && (
           <>
             {!selected && characters.list.length > 0 && (
-              <>
-                <Pagination
-                  search={characters.search}
-                  total={characters.total}
-                  label={(v) => (v >= 2 ? "personnages" : "personnage")}
-                  onNext={(start, limit) => {
-                    setCharactersSearch({ ...characters.search, start, limit });
-                  }}
-                  onPrev={(start, limit) => {
-                    setCharactersSearch({ ...characters.search, start, limit });
-                  }}
-                />
-
-                <ListCharacters
-                  list={characters.list}
-                  format={selected ? FORMAT.list : FORMAT.grid}
-                  onSelectionChange={toggleSelected}
-                  selected={selected}
-                  searchString={searchString}
-                />
-              </>
+              <Pagination
+                search={characters.search}
+                total={characters.total}
+                label={(v) => (v >= 2 ? "personnages" : "personnage")}
+                onNext={(start, limit) => {
+                  setCharactersSearch({
+                    ...characters.search,
+                    start,
+                    limit,
+                    id: undefined,
+                  });
+                }}
+                onPrev={(start, limit) => {
+                  setCharactersSearch({
+                    ...characters.search,
+                    start,
+                    limit,
+                    id: undefined,
+                  });
+                }}
+              />
             )}
+            <ListCharacters
+              list={characters.list}
+              format={selected ? FORMAT.list : FORMAT.grid}
+              onSelectionChange={toggleSelected}
+              selected={selected}
+              searchString={
+                !characters.search.id ? characters.search.text : undefined
+              }
+            />
           </>
         )}
       </Wrapper>

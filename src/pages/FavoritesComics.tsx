@@ -20,8 +20,6 @@ export const FavoritesComics = () => {
     item.title.toLowerCase().includes(value.toLowerCase()),
   );
 
-  const choices = comics.map((v) => ({ id: v.id, name: v.title }));
-
   useEffect(() => {
     setSelected(undefined);
   }, [setSelected]);
@@ -33,7 +31,6 @@ export const FavoritesComics = () => {
           placeholder="Rechercher des comics dans ses favoris"
           value={value}
           onChange={setValue}
-          choices={choices}
         />
       </Header>
       <Wrapper>

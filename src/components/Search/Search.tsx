@@ -6,6 +6,7 @@ export const Search = ({
   placeholder,
   choices = [],
   onChange,
+  onAutocompleteSelect,
 }: SearchProps) => {
   return (
     <div className="w-1/2">
@@ -16,11 +17,16 @@ export const Search = ({
         showNoResults={false}
         onSearch={onChange}
         onSelect={(choice: Choice) => {
-          onChange(choice.name);
+          console.log(choice);
+          if (onAutocompleteSelect) onAutocompleteSelect(choice.id);
+          //onChange(choice.name.slice(0, 10));
         }}
         autoFocus
         showClear
-        formatResult={(item: Choice) => <span>{item.name}</span>}
+        showIcon={false}
+        formatResult={(item: Choice) => (
+          <span className="cursor-pointer">{item.name}</span>
+        )}
         styling={{
           border: "1px solid var(--color-border-strong)",
           borderRadius: "var(--radius)",

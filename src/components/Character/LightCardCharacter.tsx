@@ -1,7 +1,6 @@
 import { cn } from "@/helpers/cn";
-import { formatName } from "./helpers";
 import type { CardCharacterProps } from "./types";
-import { getSmallImage } from "@/helpers/utils";
+import { formatName, getSmallImage } from "@/helpers/utils";
 import ImageLoader from "@/components/ImageLoader";
 import { FavoritesCharacter } from "./FavoritesCharacter";
 import { useScroll } from "@/hooks/useScroll";

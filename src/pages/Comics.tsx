@@ -5,6 +5,7 @@ import { FORMAT } from "@/components/ListComics/types";
 import Pagination from "@/components/Pagination";
 import Search from "@/components/Search";
 import { Wrapper } from "@/components/Wrapper";
+import { getChoicesComic } from "@/helpers/utils";
 import { useStore } from "@/store";
 
 import { useEffect } from "react";
@@ -14,9 +15,8 @@ export const Comics = () => {
   const comics = useStore((s) => s.comics);
   const setSearch = useStore((s) => s.setComicsSearch);
   const toggleSelected = useStore((s) => s.toggleSelected);
-  const searchString = useStore((s) => s.comics.search.text);
 
-  const choices = comics.list.map((v) => ({ id: v.id, name: v.title }));
+  const choices = getChoicesComic(comics.list);
 
   useEffect(() => {
     fetchComics(comics.search);
@@ -33,7 +33,10 @@ export const Comics = () => {
           placeholder="Rechercher des comics"
           value={comics.search.text ?? ""}
           onChange={(v) => {
-            setSearch({ ...comics.search, text: v, start: 0 });
+            setSearch({ ...comics.search, text: v, start: 0, id: undefined });
+          }}
+          onAutocompleteSelect={(value) => {
+            setSearch({ ...comics.search, id: value });
           }}
           choices={choices}
         />
@@ -49,16 +52,28 @@ export const Comics = () => {
                   total={comics.total}
                   label={(v) => (v >= 2 ? "comics" : "comic")}
                   onNext={(start, limit) => {
-                    setSearch({ ...comics.search, start, limit });
+                    setSearch({
+                      ...comics.search,
+                      start,
+                      limit,
+                      id: undefined,
+                    });
                   }}
                   onPrev={(start, limit) => {
-                    setSearch({ ...comics.search, start, limit });
+                    setSearch({
+                      ...comics.search,
+                      start,
+                      limit,
+                      id: undefined,
+                    });
                   }}
                 />
                 <ListComics
                   list={comics.list}
                   format={FORMAT.full}
-                  searchString={searchString}
+                  searchString={
+                    !comics.search.id ? comics.search.text : undefined
+                  }
                 />
               </>
             )}
