@@ -1,4 +1,4 @@
-import type { Search } from "@/store/store";
+import type { Search } from "@/store";
 
 export type PaginationProps = {
   search: Search;

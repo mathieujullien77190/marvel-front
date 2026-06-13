@@ -49,7 +49,6 @@ export const FavoritesCharacters = () => {
               format={selected ? FORMAT.list : FORMAT.grid}
               onSelectionChange={toggleSelected}
               selected={selected}
-              searchString={value}
             />
           </>
         )}

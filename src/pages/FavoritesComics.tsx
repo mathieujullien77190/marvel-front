@@ -35,13 +35,7 @@ export const FavoritesComics = () => {
       </Header>
       <Wrapper>
         <h2 className="title-page">COMICS FAVORIS</h2>
-        {comics && (
-          <ListComics
-            list={searchComics}
-            format={FORMAT.full}
-            searchString={value}
-          />
-        )}
+        {comics && <ListComics list={searchComics} format={FORMAT.full} />}
       </Wrapper>
     </Auth>
   );
