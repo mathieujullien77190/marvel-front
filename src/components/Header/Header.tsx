@@ -19,8 +19,6 @@ export const Header = ({ children }: HeaderProps) => {
   const [showConnexion, setShowConnexion] = useState<boolean>(false);
   const user = useStore((s) => s.user);
   const resetUser = useStore((s) => s.resetUser);
-  const toggleSelected = useStore((s) => s.toggleSelected);
-  const setCharactersSearch = useStore((s) => s.setCharactersSearch);
 
   useAutoConnect();
 
@@ -37,23 +35,12 @@ export const Header = ({ children }: HeaderProps) => {
         className={cn(
           "bg-white sticky top-0 z-40",
           "flex justify-between items-center gap-4",
-          "py-4 px-6",
+          "py-4 px-6 h-18.75",
           "border-b border-solid border-b-border-strong",
         )}
       >
         <h1 className="text-marvel-500 text-xl font-semibold flex-none">
-          <Link
-            to={ROUTES.home}
-            onClick={() => {
-              toggleSelected(undefined);
-              setCharactersSearch({
-                text: "",
-                limit: 100,
-                start: 0,
-                id: undefined,
-              });
-            }}
-          >
+          <Link to={ROUTES.home}>
             <img src={marvelLogo} alt="MARVEL logo" className="h-10 " />
           </Link>
         </h1>
