@@ -10,7 +10,6 @@ export type ListCharactersProps = {
   list: Character[];
   format?: FORMAT;
   selected?: SelectedCharacterType;
-  searchString?: string;
   onSelectionChange: (value: Character) => void;
 };
 

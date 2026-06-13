@@ -4,7 +4,7 @@ import { groupComicsByYear, sortYears } from "./helpers";
 import ScrollTop from "@/components/ScrollTop";
 import { cn } from "@/helpers/cn";
 
-export const ListComics = ({ list, format, searchString }: ListComicsProps) => {
+export const ListComics = ({ list, format }: ListComicsProps) => {
   const grouped = groupComicsByYear(list);
   const sortedYears = sortYears(grouped);
 
@@ -27,7 +27,6 @@ export const ListComics = ({ list, format, searchString }: ListComicsProps) => {
                 <LightCardComic
                   {...comic}
                   year={key === "no_date" ? undefined : Number(key)}
-                  searchString={searchString}
                 />
               </li>
             ))}

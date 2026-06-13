@@ -2,7 +2,6 @@ import type { Character, Comic } from "@/types";
 
 export type CardCharacterProps = Character & {
   selected?: boolean;
-  searchString?: string;
   onClick?: (value: Character) => void;
 };
 

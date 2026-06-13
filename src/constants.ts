@@ -7,6 +7,8 @@ export const ROUTES = {
   favoritesCharacters: "/favorites/characters",
 };
 
+export const DEBOUNCE_TIME = 400;
+
 export const BASE_PATH_API = "https://site--marvel-back--d47pxmpggz5l.code.run";
 //export const BASE_PATH_API = "http://localhost:3000";
 

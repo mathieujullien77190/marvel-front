@@ -1,3 +1,4 @@
+import { cn } from "@/helpers/cn";
 import { generateText } from "./helpers";
 import type { PaginationProps } from "./types";
 
@@ -8,32 +9,38 @@ export const Pagination = ({
   onPrev,
   onNext,
 }: PaginationProps) => {
+  const hasPrev = search.start > 0;
+  const hasNext = search.start + search.limit < total;
+
   return (
     <div className="flex p-4 justify-between ">
-      {search.start > 0 && (
-        <button
-          className="text-sm link transition"
-          onClick={() => {
-            onPrev(search.start - search.limit, search.limit);
-          }}
-        >
-          Précédent
-        </button>
-      )}
+      <button
+        className={cn(
+          "text-sm link transition w-25 ",
+          hasPrev ? "visible" : "invisible",
+        )}
+        onClick={() => {
+          if (hasPrev) onPrev(search.start - search.limit, search.limit);
+        }}
+      >
+        Précédent
+      </button>
+
       <p className="text-sm text-ink-light w-full flex justify-center font-semibold">
-        {generateText({ search, total, label })}
+        {generateText({ search, total, label, hasPrev, hasNext })}
       </p>
 
-      {search.start + search.limit < total && (
-        <button
-          className="text-sm link transition"
-          onClick={() => {
-            onNext(search.start + search.limit, search.limit);
-          }}
-        >
-          Suivant
-        </button>
-      )}
+      <button
+        className={cn(
+          "text-sm link transition w-25",
+          hasNext ? "visible" : "invisible",
+        )}
+        onClick={() => {
+          if (hasNext) onNext(search.start + search.limit, search.limit);
+        }}
+      >
+        Suivant
+      </button>
     </div>
   );
 };

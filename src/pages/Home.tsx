@@ -4,12 +4,15 @@ import { FORMAT } from "@/components/ListCharacters/types";
 import Pagination from "@/components/Pagination";
 import Search from "@/components/Search";
 import { Wrapper } from "@/components/Wrapper";
+import { DEBOUNCE_TIME } from "@/constants";
 import { getChoicesCharacter } from "@/helpers/utils";
 import { useStore } from "@/store";
 
-import { useEffect } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 export const Home = () => {
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const {
     fetchCharacters,
     fetchComicsOfCharacter,
@@ -19,10 +22,17 @@ export const Home = () => {
     selected,
   } = useStore();
 
-  const choices = getChoicesCharacter(characters.list);
+  const choices = useMemo(() => {
+    return getChoicesCharacter(characters.list);
+  }, [characters.list]);
 
   useEffect(() => {
-    fetchCharacters(characters.search);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = window.setTimeout(
+      () => fetchCharacters(characters.search),
+      characters.search.id ? 0 : DEBOUNCE_TIME,
+    );
   }, [fetchCharacters, characters.search]);
 
   useEffect(() => {
@@ -48,8 +58,12 @@ export const Home = () => {
               id: undefined,
             });
           }}
-          onAutocompleteSelect={(value) => {
-            setCharactersSearch({ ...characters.search, id: value });
+          onChoose={(choice) => {
+            setCharactersSearch({
+              ...characters.search,
+              id: choice.id,
+              text: choice.name,
+            });
           }}
           choices={choices}
         />
@@ -58,7 +72,7 @@ export const Home = () => {
         <h2 className="title-page">PERSONNAGES</h2>
         {characters && (
           <>
-            {!selected && characters.list.length > 0 && (
+            {!selected && (
               <Pagination
                 search={characters.search}
                 total={characters.total}
@@ -86,9 +100,6 @@ export const Home = () => {
               format={selected ? FORMAT.list : FORMAT.grid}
               onSelectionChange={toggleSelected}
               selected={selected}
-              searchString={
-                !characters.search.id ? characters.search.text : undefined
-              }
             />
           </>
         )}

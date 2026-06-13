@@ -8,11 +8,10 @@ import {
 import ImageLoader from "../ImageLoader";
 import { useState } from "react";
 import { FavoritesComic } from "./FavoritesComic";
-import HighlightText from "@/components/HightlightText";
 
 export const LightCardComic = ({
   year,
-  searchString,
+
   ...props
 }: CardComicProps) => {
   const { image, title, description } = props;
@@ -44,7 +43,7 @@ export const LightCardComic = ({
       <div className="flex flex-col gap-2 w-full">
         <p className="text font-semibold line-clamp-1 flex justify-between">
           <span className="flex gap-2 items-center">
-            <HighlightText text={removeValidYear(title)} query={searchString} />{" "}
+            {removeValidYear(title)}
             <FavoritesComic {...props} />
           </span>
           {year && <span>{year}</span>}

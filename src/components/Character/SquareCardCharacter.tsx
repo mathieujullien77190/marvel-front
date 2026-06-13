@@ -4,11 +4,10 @@ import { Tag } from "./Tag";
 import { getSmallImage } from "@/helpers/utils";
 import ImageLoader from "@/components/ImageLoader";
 import { FavoritesCharacter } from "./FavoritesCharacter";
-import HighlightText from "@/components/HightlightText";
 
 export const SquareCardCharacter = ({
   onClick = () => {},
-  searchString,
+
   selected,
   ...props
 }: CardCharacterProps) => {
@@ -30,9 +29,7 @@ export const SquareCardCharacter = ({
         image={getSmallImage(image)}
       />
 
-      <p className="text font-semibold line-clamp-2 text-center">
-        <HighlightText text={name} query={searchString} />
-      </p>
+      <p className="text font-semibold line-clamp-2 text-center">n{name}</p>
       <FavoritesCharacter {...props} />
       <Tag value={`${comics} COMICS`} />
     </div>

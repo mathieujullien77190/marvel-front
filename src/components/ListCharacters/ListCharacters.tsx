@@ -13,7 +13,6 @@ export const ListCharacters = ({
   selected,
   format = FORMAT.grid,
   onSelectionChange,
-  searchString,
 }: ListCharactersProps) => {
   return (
     <section className="w-full p-4">
@@ -26,7 +25,6 @@ export const ListCharacters = ({
                   {...character}
                   selected={character.id === selected?.character.id}
                   onClick={onSelectionChange}
-                  searchString={searchString}
                 />
               </li>
             ))}
