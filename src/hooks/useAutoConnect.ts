@@ -1,11 +1,11 @@
 import { getToken, getUsername } from "@/helpers/user";
 import { getFavorites } from "@/services/getFavorites";
-import { useCharactersStore } from "@/store/store";
+import { useStore } from "@/store";
 import { useEffect } from "react";
 
 export const useAutoConnect = () => {
-  const setUser = useCharactersStore((s) => s.setUser);
-  const isConnected = useCharactersStore((s) => s.isConnected);
+  const setUser = useStore((s) => s.setUser);
+  const isConnected = useStore((s) => s.isConnected);
 
   useEffect(() => {
     const tokenCookie = getToken();

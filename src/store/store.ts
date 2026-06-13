@@ -3,79 +3,12 @@ import { getCharacters } from "@/services/getCharacters";
 import { getComics } from "@/services/getComics";
 import { getComicsOfCharacter } from "@/services/getComicsOfCharacter";
 import { putFavorites } from "@/services/putFavorites";
-import type { Character, Comic, User } from "@/types";
 import { create } from "zustand";
 import { hasCharacter, hasComic, isValidCharacter } from "./helpers";
+import defaultStore from "./defaultStore";
+import type { State } from "./types";
 
-export type SelectedCharacterType = { character: Character; comics: Comic[] };
-
-export type Search = {
-  text?: string;
-  start: number;
-  limit: number;
-};
-
-type State = {
-  user: User;
-  isConnected: boolean;
-  selected?: SelectedCharacterType;
-  characters: {
-    list: Character[];
-    total: number;
-    search: Search;
-  };
-  comics: {
-    list: Comic[];
-    total: number;
-    search: Search;
-  };
-
-  resetUser: () => void;
-  setUser: (user: User) => void;
-  addFavoriteCharacter: (value: Character) => void;
-  removeFavoriteCharacter: (id: string) => void;
-  addFavoriteComic: (value: Comic) => void;
-  removeFavoriteComic: (id: string) => void;
-  setCharactersSearch: (search: Search) => void;
-  setComicsSearch: (search: Search) => void;
-  toggleSelected: (value?: Character) => void;
-  fetchCharacters: (search: Search) => Promise<void>;
-  fetchComics: (search: Search) => Promise<void>;
-  fetchComicsOfCharacter: (id: string) => Promise<void>;
-};
-
-const defaultStore = {
-  selected: undefined,
-  isConnected: false,
-  user: {
-    username: undefined,
-    token: undefined,
-    favorites: {
-      characters: [],
-      comics: [],
-    },
-  },
-  characters: {
-    list: [],
-    total: 0,
-    search: {
-      text: undefined,
-      start: 0,
-      limit: 100,
-    },
-  },
-  comics: {
-    list: [],
-    total: 0,
-    search: {
-      text: undefined,
-      start: 0,
-      limit: 100,
-    },
-  },
-};
-
-export const useCharactersStore = create<State>((set) => ({
+export const useStore = create<State>((set) => ({
   ...defaultStore,
 
   resetUser: () => {

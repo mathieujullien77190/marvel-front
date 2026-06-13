@@ -8,4 +8,5 @@ export enum FORMAT {
 export type ListComicsProps = {
   list: Comic[];
   format?: FORMAT;
+  searchString?: string;
 };

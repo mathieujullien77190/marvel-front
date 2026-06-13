@@ -9,16 +9,17 @@ import { useState } from "react";
 
 import Signin from "@/components/Signin";
 import { User as UserComponent } from "./User";
-import { useCharactersStore } from "@/store/store";
+import { useStore } from "@/store";
 import { useAutoConnect } from "@/hooks/useAutoConnect";
 
 export const Header = ({ children }: HeaderProps) => {
-  const [showConnexion, setShowConnexion] = useState<boolean>(false);
-  const user = useCharactersStore((s) => s.user);
-  const resetUser = useCharactersStore((s) => s.resetUser);
   const navigate = useNavigate();
   const location = useLocation();
-  const toggleSelected = useCharactersStore((s) => s.toggleSelected);
+
+  const [showConnexion, setShowConnexion] = useState<boolean>(false);
+  const user = useStore((s) => s.user);
+  const resetUser = useStore((s) => s.resetUser);
+  const toggleSelected = useStore((s) => s.toggleSelected);
 
   useAutoConnect();
 

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Modal from "@/components/Modal";
 import { MODE, type SigninProps, type User } from "./types";
 import { postSignup } from "@/services/postSignup";
-import { useCharactersStore } from "@/store/store";
+import { useStore } from "@/store";
 
 export const Signin = ({ show, onClose }: SigninProps) => {
   const [error, setError] = useState<string | null>(null);
@@ -15,9 +15,7 @@ export const Signin = ({ show, onClose }: SigninProps) => {
     username: "",
   });
 
-  const setUserStore = useCharactersStore((s) => s.setUser);
-
-  // const resetUserStore = useCharactersStore((s) => s.resetUser);
+  const setUserStore = useStore((s) => s.setUser);
 
   const handleSubmit = () => {
     setError(null);

@@ -8,8 +8,13 @@ import {
 import ImageLoader from "../ImageLoader";
 import { useState } from "react";
 import { FavoritesComic } from "./FavoritesComic";
+import HighlightText from "@/components/HightlightText";
 
-export const LightCardComic = ({ year, ...props }: CardComicProps) => {
+export const LightCardComic = ({
+  year,
+  searchString,
+  ...props
+}: CardComicProps) => {
   const { image, title, description } = props;
 
   const [isBig, setIsBig] = useState<boolean>(false);
@@ -27,7 +32,7 @@ export const LightCardComic = ({ year, ...props }: CardComicProps) => {
       {isBig ? (
         <ImageLoader
           image={image}
-          className={cn("w-30 h-40", "rounded overflow-hidden shrink-0")}
+          className={cn("w-50 h-70", "rounded overflow-hidden shrink-0")}
         />
       ) : (
         <ImageLoader
@@ -39,7 +44,8 @@ export const LightCardComic = ({ year, ...props }: CardComicProps) => {
       <div className="flex flex-col gap-2 w-full">
         <p className="text font-semibold line-clamp-1 flex justify-between">
           <span className="flex gap-2 items-center">
-            {removeValidYear(title)} <FavoritesComic {...props} />
+            <HighlightText text={removeValidYear(title)} query={searchString} />{" "}
+            <FavoritesComic {...props} />
           </span>
           {year && <span>{year}</span>}
         </p>

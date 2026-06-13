@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { LINKS } from "./constants";
-import { useCharactersStore } from "@/store/store";
+import { useStore } from "@/store";
 
 import { cn } from "@/helpers/cn";
 import { useState } from "react";
 
 export const Nav = () => {
-  const isCo = useCharactersStore((s) => s.user.username && s.user.token);
+  const isCo = useStore((s) => s.user.username && s.user.token);
 
   const [details, setDetails] = useState<boolean>(false);
 

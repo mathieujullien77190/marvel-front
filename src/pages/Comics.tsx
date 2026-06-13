@@ -5,15 +5,18 @@ import { FORMAT } from "@/components/ListComics/types";
 import Pagination from "@/components/Pagination";
 import Search from "@/components/Search";
 import { Wrapper } from "@/components/Wrapper";
-import { useCharactersStore } from "@/store/store";
+import { useStore } from "@/store";
 
 import { useEffect } from "react";
 
 export const Comics = () => {
-  const fetchComics = useCharactersStore((s) => s.fetchComics);
-  const comics = useCharactersStore((s) => s.comics);
-  const setSearch = useCharactersStore((s) => s.setComicsSearch);
-  const toggleSelected = useCharactersStore((s) => s.toggleSelected);
+  const fetchComics = useStore((s) => s.fetchComics);
+  const comics = useStore((s) => s.comics);
+  const setSearch = useStore((s) => s.setComicsSearch);
+  const toggleSelected = useStore((s) => s.toggleSelected);
+  const searchString = useStore((s) => s.comics.search.text);
+
+  const choices = comics.list.map((v) => ({ id: v.id, name: v.title }));
 
   useEffect(() => {
     fetchComics(comics.search);
@@ -32,6 +35,7 @@ export const Comics = () => {
           onChange={(v) => {
             setSearch({ ...comics.search, text: v, start: 0 });
           }}
+          choices={choices}
         />
       </Header>
       <Wrapper>
@@ -39,20 +43,25 @@ export const Comics = () => {
         {comics && (
           <>
             {comics.list.length > 0 && (
-              <Pagination
-                search={comics.search}
-                total={comics.total}
-                label={(v) => (v >= 2 ? "comics" : "comic")}
-                onNext={(start, limit) => {
-                  setSearch({ ...comics.search, start, limit });
-                }}
-                onPrev={(start, limit) => {
-                  setSearch({ ...comics.search, start, limit });
-                }}
-              />
+              <>
+                <Pagination
+                  search={comics.search}
+                  total={comics.total}
+                  label={(v) => (v >= 2 ? "comics" : "comic")}
+                  onNext={(start, limit) => {
+                    setSearch({ ...comics.search, start, limit });
+                  }}
+                  onPrev={(start, limit) => {
+                    setSearch({ ...comics.search, start, limit });
+                  }}
+                />
+                <ListComics
+                  list={comics.list}
+                  format={FORMAT.full}
+                  searchString={searchString}
+                />
+              </>
             )}
-
-            <ListComics list={comics.list} format={FORMAT.full} />
           </>
         )}
       </Wrapper>

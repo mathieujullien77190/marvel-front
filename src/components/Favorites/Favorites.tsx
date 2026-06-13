@@ -3,10 +3,10 @@ import { FaHeart } from "react-icons/fa6";
 
 import type { FavoritesProps } from "./types";
 
-import { useCharactersStore } from "@/store/store";
+import { useStore } from "@/store";
 
 export const Favorites = ({ isActive, onActivate }: FavoritesProps) => {
-  const isCo = useCharactersStore((s) => s.user.username && s.user.token);
+  const isCo = useStore((s) => s.user.username && s.user.token);
 
   return (
     <>

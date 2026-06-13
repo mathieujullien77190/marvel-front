@@ -1,4 +1,4 @@
-import type { SelectedCharacterType } from "@/store/store";
+import type { SelectedCharacterType } from "@/store";
 import type { Character } from "@/types";
 
 export enum FORMAT {
@@ -10,5 +10,8 @@ export type ListCharactersProps = {
   list: Character[];
   format?: FORMAT;
   selected?: SelectedCharacterType;
+  searchString?: string;
   onSelectionChange: (value: Character) => void;
 };
+
+export type CloseProps = { onClick: () => void };
