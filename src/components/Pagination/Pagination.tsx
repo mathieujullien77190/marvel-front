@@ -16,7 +16,7 @@ export const Pagination = ({
   const device = useDevice();
 
   return (
-    <div className="flex p-4 justify-between sticky top-20">
+    <div className="flex p-4 justify-between">
       <button
         className={cn(
           "text-sm link transition w-25 ",

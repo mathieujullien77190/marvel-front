@@ -5,6 +5,7 @@ import Modal from "@/components/Modal";
 import { MODE, type SigninProps, type User } from "./types";
 import { postSignup } from "@/services/postSignup";
 import { useStore } from "@/store";
+import { TbEye, TbEyeOff } from "react-icons/tb";
 
 export const Signin = ({ show, onClose }: SigninProps) => {
   const [error, setError] = useState<string | null>(null);
@@ -16,6 +17,8 @@ export const Signin = ({ show, onClose }: SigninProps) => {
   });
 
   const setUserStore = useStore((s) => s.setUser);
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = () => {
     setError(null);
@@ -107,18 +110,28 @@ export const Signin = ({ show, onClose }: SigninProps) => {
           <label htmlFor="password" className="w-full text-center">
             Mot de passe
           </label>
-          <input
-            autoComplete="off"
-            type="password"
-            placeholder="Mot de passe"
-            id="password"
-            name="password"
-            className="input"
-            value={user.password ?? ""}
-            onChange={(e) => {
-              setUser((prev) => ({ ...prev, password: e.target.value }));
-            }}
-          />
+          <div className="relative w-full">
+            <input
+              autoComplete="off"
+              type={showPassword ? "text" : "password"}
+              placeholder="Mot de passe"
+              id="password"
+              name="password"
+              className="input w-full pr-10"
+              value={user.password ?? ""}
+              onChange={(e) => {
+                setUser((prev) => ({ ...prev, password: e.target.value }));
+              }}
+            />
+
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-ink cursor-pointer"
+            >
+              {showPassword ? <TbEyeOff size={18} /> : <TbEye size={18} />}
+            </button>
+          </div>
 
           {error && (
             <p className="text text-marvel-700 w-full text-center">{error}</p>
